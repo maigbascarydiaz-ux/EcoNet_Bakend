@@ -39,21 +39,18 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # Archivos de variables de entorno de dotenv
-.env
+
 .env.development.local
 .env.test.local
 .env.production.local
 .env.local
 
-<<<<<<< HEAD
 # Directorios temporales
-=======
 .env
 .env.*
 !.env.example
 
 # temp directory
->>>>>>> 24364dbdfae520ca7dc4facc87642feed7e2eb7b
 .temp
 .tmp
 
