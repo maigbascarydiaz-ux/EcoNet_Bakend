@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model comentarios {
+  id_comentarios Int       @id @default(autoincrement())
+  nombre         String    @db.VarChar(100)
+  email          String    @db.VarChar(150)
+  mensaje        String
+  fecha_creacion DateTime? @default(now()) @db.Timestamp(6)
+}
+
+model comunidades {
+  id_comunidades Int       @id @default(autoincrement())
+  nombre         String    @db.VarChar(100)
+  descripcion    String?
+  actividad      String    @db.VarChar(150)
+  contacto       String    @db.VarChar(200)
+  fecha_creacion DateTime? @default(now()) @db.Timestamp(6)
+}
+
+model usuarios {
+  id_usuario     Int       @id @default(autoincrement())
+  nombre         String    @db.VarChar(100)
+  email          String    @db.VarChar(255)
+  password_hash  String    @db.VarChar(250)
+  fecha_registro DateTime? @default(now()) @db.Timestamp(6)
+}

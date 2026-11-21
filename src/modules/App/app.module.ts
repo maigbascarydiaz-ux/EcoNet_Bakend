@@ -4,7 +4,7 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { ComentariosModule } from '../comentarios/entities/comentarios.module.js';
 import { ComunidadesModule } from '../comunidades/entities/comunidades.module.js';
-import { UsersModule } from '../users/users.module.js';
+import { UsersModule } from '../users/entities/users.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
