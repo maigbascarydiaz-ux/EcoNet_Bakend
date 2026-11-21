@@ -49,8 +49,10 @@ npm run start:prod
 Los módulos de la aplicación se registran desde `src/modules/App/app.module.ts`.
 
 - **Usuarios (`/users`)**: incluye rutas iniciales para crear, listar, consultar, actualizar y eliminar usuarios. Actualmente, el servicio devuelve respuestas de ejemplo y no persiste datos.
-- **Comunidades**: el módulo está registrado, pero todavía no tiene controladores ni endpoints.
-- **Comentarios**: el módulo está registrado, pero todavía no tiene controladores ni endpoints.
+- **Comunidades (`/comunidades`)**: permite crear, listar, consultar, actualizar y eliminar comunidades.
+- **Comentarios (`/comentarios`)**: permite crear, listar, consultar, actualizar y eliminar comentarios.
+
+Los servicios de comunidades y comentarios mantienen los registros en memoria; los datos se pierden al reiniciar la aplicación.
 
 ## Validación de solicitudes
 
@@ -58,7 +60,7 @@ La aplicación configura un `ValidationPipe` global. Los DTO de creación valida
 
 - **Usuario**: `nombre` (texto obligatorio), `email` (formato de correo) y `password` (texto de al menos 8 caracteres).
 - **Comunidad**: `nombre`, `descripcion`, `actividad` y `contacto` (textos obligatorios).
-- **Comentario**: `nombre` (texto obligatorio), `email` (formato de correo) y `mensaje` (texto obligatorio).
+- **Comentario**: `nombre` (texto obligatorio), `email` (formato de correo) y `mensaje` (entre 2 y 200 caracteres).
 
 Los DTO de actualización de usuarios y comunidades permiten enviar campos parciales. Los DTO de comentarios también están definidos; todavía no hay endpoints de comentarios que los utilicen.
 
