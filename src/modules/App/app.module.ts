@@ -5,6 +5,7 @@ import { AppService } from './app.service.js';
 import { ComentariosModule } from '../comentarios/entities/comentarios.module.js';
 import { ComunidadesModule } from '../comunidades/entities/comunidades.module.js';
 import { UsersModule } from '../users/entities/users.module.js';
+import { PrismaModule } from '../prisma/prisma.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -15,6 +16,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       appSecret: process.env.OBSERVE_APP_SECRET ?? 'YOUR_APP_SECRET',
       serviceId: 'eco-net-bak',
     }),
+    PrismaModule,
     UsersModule,
     ComunidadesModule,
     ComentariosModule,
