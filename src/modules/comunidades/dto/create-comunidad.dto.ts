@@ -1,19 +1,20 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsString,IsNotEmpty,Matches } from 'class-validator';
 
 export class CreateComunidadDto {
-  @IsString()
-  @IsNotEmpty()
-  nombre!: string;
+  @IsString({ message: 'El nombre debe ser una cadena de texto' })
+  @IsNotEmpty({ message: 'El nombre es obligatorio' })
+  nombre: string;
 
-  @IsString()
-  @IsNotEmpty()
-  descripcion!: string;
+  @IsString({ message: 'La descripción debe ser una cadena de texto' })
+  @IsNotEmpty({ message: 'La descripción es obligatoria' })
+  descripcion: string;
 
-  @IsString()
-  @IsNotEmpty()
-  actividad!: string;
+  @IsString({ message: 'La actividad debe ser una cadena de texto' })
+  @IsNotEmpty({ message: 'La actividad es obligatoria' })
+  actividad: string;
 
-  @IsString()
-  @IsNotEmpty()
-  contacto!: string;
+  @IsString({ message: 'El contacto debe ser una cadena de texto' })
+  @IsNotEmpty({ message: 'El contacto es obligatorio' })
+  @Matches(/^([^\s@]+@[^\s@]+\.[^\s@]+|\+?[0-9\s()-]{8,20})$/,{ message: 'El contacto debe ser un email o teléfono válido' })
+   contacto: string;
 }
