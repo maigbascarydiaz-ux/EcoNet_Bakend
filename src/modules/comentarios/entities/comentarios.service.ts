@@ -1,58 +1,46 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateComentariosDto } from '../dto/create-comentarios.dto.js';
 import { UpdateComentariosDto } from '../dto/update-comentarios.dto.js';
-
-export interface Comentario extends CreateComentariosDto {
-  id: number;
-}
+import { PrismaService } from '../../prisma/prisma.service.js';
 
 @Injectable()
 export class ComentariosService {
-  private readonly comentarios: Comentario[] = [];
-  private nextId = 1;
+  constructor(private readonly prisma: PrismaService) {}
 
-  create(createComentariosDto: CreateComentariosDto): Comentario {
-    const comentario: Comentario = {
-      id: this.nextId++,
-      nombre: createComentariosDto.nombre,
-      email: createComentariosDto.email,
-      mensaje: createComentariosDto.mensaje,
-    };
-    this.comentarios.push(comentario);
-    return comentario;
+  create(createComentariosDto: CreateComentariosDto) {
+    return this.prisma.comentarios.create({
+      data: createComentariosDto,
+    });
   }
 
-  findAll(): Comentario[] {
-    return [...this.comentarios];
+  findAll() {
+    return this.prisma.comentarios.findMany();
   }
 
-  findOne(id: number): Comentario {
-    const comentario = this.comentarios.find((item) => item.id === id);
+  async findOne(id: number) {
+    const comentario = await this.prisma.comentarios.findUnique({
+      where: { id_comentarios: id },
+    });
     if (!comentario) {
       throw new NotFoundException(`No se encontró el comentario con id ${id}`);
     }
     return comentario;
   }
 
-  update(id: number, updateComentariosDto: UpdateComentariosDto): Comentario {
-    const comentario = this.findOne(id);
-    if (updateComentariosDto.nombre !== undefined) {
-      comentario.nombre = updateComentariosDto.nombre;
-    }
-    if (updateComentariosDto.email !== undefined) {
-      comentario.email = updateComentariosDto.email;
-    }
-    if (updateComentariosDto.mensaje !== undefined) {
-      comentario.mensaje = updateComentariosDto.mensaje;
-    }
-    return comentario;
+  async update(id: number, updateComentariosDto: UpdateComentariosDto) {
+    await this.findOne(id);
+
+    return this.prisma.comentarios.update({
+      where: { id_comentarios: id },
+      data: updateComentariosDto,
+    });
   }
 
-  remove(id: number): Comentario {
-    const index = this.comentarios.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw new NotFoundException(`No se encontró el comentario con id ${id}`);
-    }
-    return this.comentarios.splice(index, 1)[0]!;
+  async remove(id: number) {
+    await this.findOne(id);
+
+    return this.prisma.comentarios.delete({
+      where: { id_comentarios: id },
+    });
   }
 }

@@ -7,10 +7,11 @@ datasource db {
   provider = "postgresql"
 }
 
+
 model comentarios {
-  id_comentarios Int       @id @default(autoincrement())
-  nombre         String    @db.VarChar(100)
-  email          String    @db.VarChar(150)
+  id_comentarios Int       @id @default(autoincrement()) @map("id_consultas")
+  nombre         String
+  email          String
   mensaje        String
   fecha_creacion DateTime? @default(now()) @db.Timestamp(6)
 }
@@ -24,10 +25,13 @@ model comunidades {
   fecha_creacion DateTime? @default(now()) @db.Timestamp(6)
 }
 
+
 model usuarios {
   id_usuario     Int       @id @default(autoincrement())
-  nombre         String    @db.VarChar(100)
-  email          String    @db.VarChar(255)
-  password_hash  String    @db.VarChar(250)
+  nombre         String    @map("nombre_apellido") @db.VarChar(100)
+  email          String    @unique @db.VarChar(255)
+  password_hash  String    @db.VarChar(255)
   fecha_registro DateTime? @default(now()) @db.Timestamp(6)
+
+  @@map("usuario")
 }
